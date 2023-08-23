@@ -70,12 +70,12 @@ export class PokemonService {
   }
 
   async update(term: string, updatePokemonDto: UpdatePokemonDto) {
-    try {
-      const pokemon = await this.findOne(term);
+    const pokemon = await this.findOne(term);
 
-      if (updatePokemonDto.name) {
-        updatePokemonDto.name = updatePokemonDto.name.toLowerCase();
-      }
+    if (updatePokemonDto.name) {
+      updatePokemonDto.name = updatePokemonDto.name.toLowerCase();
+    }
+    try {
       await pokemon.updateOne(updatePokemonDto, { new: true });
 
       // return pokemon;
