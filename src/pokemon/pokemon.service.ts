@@ -56,7 +56,7 @@ export class PokemonService {
     //name
     if (!pokemon) {
       pokemon = await this.pokemonModel.findOne({
-        name: term.toLocaleLowerCase().trim(),
+        name: term.toLowerCase(),
       });
     }
 
@@ -69,8 +69,28 @@ export class PokemonService {
     return pokemon;
   }
 
-  update(id: number, updatePokemonDto: UpdatePokemonDto) {
-    return `This action updates a #${id} pokemon`;
+  async update(term: string, updatePokemonDto: UpdatePokemonDto) {
+    try {
+      const pokemon = await this.findOne(term);
+
+      if (updatePokemonDto.name) {
+        updatePokemonDto.name = updatePokemonDto.name.toLowerCase();
+      }
+      await pokemon.updateOne(updatePokemonDto, { new: true });
+
+      // return pokemon;
+      return { ...pokemon.toJSON(), ...updatePokemonDto };
+    } catch (error) {
+      console.log(error);
+      if (error.code === 11000) {
+        throw new BadRequestException(
+          ` Pokemon exists in DB ${JSON.stringify(error.keyValue)}`,
+        );
+      }
+      throw new InternalServerErrorException(
+        `Can't create Pokemon - Check server logs`,
+      );
+    }
   }
 
   remove(id: number) {
