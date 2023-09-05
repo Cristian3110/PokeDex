@@ -24,13 +24,12 @@ export class SeedService {
 
     // realizando inserción(fast and better)
 
-    const insertPromiseArray = [];
+    const pokemonToInsert: { name: string; no: number }[] = [];
 
     data.results.forEach(({ name, url }) => {
       // console.log({ name, url });
 
       const segments = url.split('/');
-
       // adding (+) to convert to number
       const no = +segments[segments.length - 2];
 
@@ -38,12 +37,13 @@ export class SeedService {
       //* realizando inserción individual(slow)
       //const pokemon = await this.pokemonModel.create({ name, no });
 
-      insertPromiseArray.push(this.pokemonModel.create({ name, no }));
-
+      pokemonToInsert.push({ name, no }); // [{name: pikachu , no: 1}]
       // console.log({ pokemon });
     });
 
-    await Promise.all(insertPromiseArray);
+    await this.pokemonModel.insertMany(pokemonToInsert);
+
+    // await Promise.all(insertPromiseArray);
     // console.log(data);
     return `Seed execute`;
   }
