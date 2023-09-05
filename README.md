@@ -30,6 +30,12 @@ Start data base
 docker compose up -d
 ```
 
+- rebuild the database with the seed
+
+```
+http://localhost:3000/api/v2/seed
+```
+
 ## stack used:
 
 - MongoDB
