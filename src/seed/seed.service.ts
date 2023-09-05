@@ -19,7 +19,7 @@ export class SeedService {
     await this.pokemonModel.deleteMany({});
 
     const { data } = await this.axios.get<PokeResponse>(
-      'https://pokeapi.co/api/v2/pokemon?limit=10',
+      'https://pokeapi.co/api/v2/pokemon?limit=100',
     );
 
     // realizando inserción(fast and better)
