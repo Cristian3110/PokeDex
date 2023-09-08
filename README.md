@@ -30,6 +30,10 @@ Start data base
 docker compose up -d
 ```
 
+clone the file **.env.template**
+
+Complete the variables received in the `.env`
+
 - rebuild the database with the seed
 
 ```
