@@ -23,7 +23,19 @@ npm i -g @nestjs/cli
 docker compose up -d
 ```
 
-5. Stack usado
+5. Construir el archivo **.env.template** y renombrar la copia **.env**
+
+6. Llenar las variables de entorno definidas.
+
+7. Ejecutar la aplicación en dev:
+
+`yarn start:dev`
+
+8. Reconstruir la base de datos con la semilla
+
+http://locahost:3000/api/v2/seed
+
+### Stack usado
 
 - MongoDB
 - Nest
